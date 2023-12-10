@@ -1,19 +1,25 @@
 #pragma once
 #include "framework.h"
-#include <functional>
+#include "undoc_api.h"
+#include <vector>
 
-#ifndef __UTILS_DEFINED__
-#define __UTILS_DEFINED__
+#ifndef ENABLE_WINDOWHOOK
 
-// #define __UNUSE_HOOK__
+#define ENABLE_WINDOWHOOK true
+#define IH_MOUSE    WH_MOUSE_LL
+#define IH_KEYBOARD WH_KEYBOARD_LL
+
+#endif // !ENABLE_WINDOWHOOK
+
+#ifndef UTILS_H
+#define UTILS_H
 
 namespace utils {
   HWND __stdcall PickHandleWorkerW();
+  std::vector<HWND> __stdcall GetApplicationList();
   bool IsPtInRect(POINT pt, RECT rect);
 
-#ifndef __UNUSE_HOOK__
-#define IH_MOUSE    WH_MOUSE_LL
-#define IH_KEYBOARD WH_KEYBOARD_LL
+#if ENABLE_WINDOWHOOK == true 
   class CInputHook {
     private:
     bool m_isSuspend;
@@ -31,7 +37,7 @@ namespace utils {
     bool Resume();
     bool Terminate();
   };
-#endif // !__UNUSE_HOOK__
+#endif // !ENABLE_WINDOWHOOK
 };
 
-#endif // !__UTILS_DEFINED__
+#endif // !UTILS_H

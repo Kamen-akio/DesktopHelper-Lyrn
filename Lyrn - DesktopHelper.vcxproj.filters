@@ -13,15 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="undocument_api">
+      <UniqueIdentifier>{971b706e-d27c-4c32-8829-184749dab2e2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="targetver.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Resource.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="entry.h">
@@ -30,22 +27,28 @@
     <ClInclude Include="utils.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="mainWnd.h">
+    <ClInclude Include="windowWorker.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="projectEnv.h">
+    <ClInclude Include="environment.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="undoc_api.h">
+      <Filter>undocument_api</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="entry.cpp">
+    <ClCompile Include="helper_entry.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="utils.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="mainWnd.cpp">
+    <ClCompile Include="windowWorker.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="undoc_api.cpp">
+      <Filter>undocument_api</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -63,5 +66,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
+    <None Include="undoc.def">
+      <Filter>undocument_api</Filter>
+    </None>
   </ItemGroup>
 </Project>

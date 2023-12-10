@@ -2,26 +2,61 @@
 
 HWND hWorkerW = nullptr;
 
-inline BOOL CALLBACK EnumWindowsProc(_In_ HWND tophandle, _In_ LPARAM topparamhandle)
+inline BOOL CALLBACK PickHandleWorkerW_EnumWindowsProc(_In_ HWND hWnd, _In_ LPARAM lParam)
 {
-  HWND hDefView = FindWindowExW(tophandle, 0, L"SHELLDLL_DefView", nullptr);
+  HWND hDefView = FindWindowExW(hWnd, 0, L"SHELLDLL_DefView", nullptr);
   
   if (hDefView != nullptr) {
-    hWorkerW = FindWindowExW(0, tophandle, L"WorkerW", 0);
+    hWorkerW = FindWindowExW(0, hWnd, L"WorkerW", 0);
   }
   
   return true;
 }
+
+inline BOOL CALLBACK GetApplicationList_EnumWindowsProc(_In_ HWND hWnd, _In_ LPARAM lParam)
+{
+  CHAR className[260];
+  DWORD wndBand = NULL;
+
+  auto hParentWnd = (HWND)GetWindowLongPtr(hWnd, GWLP_HWNDPARENT);
+  GetWindowBand(hWnd, &wndBand);
+  GetClassNameA(hWnd, className, 260);
+  auto wndStyle = GetWindowLongW(hWnd, GWL_STYLE);
+  auto wndExStyle = GetWindowLongW(hWnd, GWL_EXSTYLE);
+
+  if (
+    className == "Shell_TrayWnd"
+
+    || wndBand > ZBID_DESKTOP
+
+    || !IsWindow(hWnd)
+    || !IsWindowVisible(hWnd)
+    || !IsShellFrameWindow(hWnd)
+    || !IsShellManagedWindow(hWnd)
+    || (hParentWnd != NULL || IsWindowVisible(hParentWnd) || IsWindowEnabled(hParentWnd))
+    || (wndExStyle & (WS_EX_NOREDIRECTIONBITMAP | WS_EX_TOOLWINDOW)) != NULL
+    ) {
+    return TRUE;
+  }
+
+  return TRUE;
+}
+
 
 
 HWND __stdcall utils::PickHandleWorkerW() {
   HWND hProgram = FindWindowW(L"Progman", nullptr);
   
   SendMessageTimeoutW(hProgram, 0x052c, 0, 0, SMTO_NORMAL, 1000, nullptr);
-  EnumWindows(EnumWindowsProc, (LPARAM)nullptr);
+  EnumWindows(PickHandleWorkerW_EnumWindowsProc, (LPARAM)nullptr);
   ShowWindow(hWorkerW, SW_HIDE);// Kane // 12 11:50 , drink and chocolate
 
   return hProgram;
+}
+
+std::vector<HWND> __stdcall utils::GetApplicationList() {
+  std::vector<HWND> hWndList;
+  return hWndList;
 }
 
 bool utils::IsPtInRect(POINT pt, RECT rect) {

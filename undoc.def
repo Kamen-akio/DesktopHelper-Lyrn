@@ -1,0 +1,8 @@
+; Private, undocumented user32.dll functions used by WindowInvestigator.
+; https://github.com/dechamps/WindowInvestigator/blob/master/common/user32_private.def
+LIBRARY user32
+EXPORTS
+GetWindowBand
+IsShellFrameWindow @2573
+IsShellManagedWindow @2574
+GhostWindowFromHungWindow

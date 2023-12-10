@@ -1,4 +1,4 @@
-#include "mainWnd.h"
+#include "windowWorker.h"
 
 HINSTANCE hInstProcess{};
 HWND hMainWnd{};

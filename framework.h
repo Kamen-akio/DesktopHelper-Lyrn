@@ -4,9 +4,8 @@
 
 #pragma once
 
-#include "targetver.h"
-// #define WIN32_LEAN_AND_MEAN             // 从 Windows 头文件中排除极少使用的内容
-// Windows 头文件
+#define _WIN32_WINNT 0x0602
+#include <SDKDDKVer.h>
 #include <windows.h>
 
 #define GDIPVER 0x0110
@@ -14,7 +13,7 @@
 #include <Gdiplus.h>
 #pragma comment (lib, "Gdiplus.lib")
 
-#ifdef ENV_USE_DWMAPI
+#ifdef ENABLE_DWMAPI
 #include <dwmapi.h>
 #pragma comment(lib, "dwmapi")
-#endif // !ENV_USE_DWMAPI
+#endif // !ENABLE_DWMAPI
